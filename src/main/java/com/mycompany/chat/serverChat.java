@@ -4,11 +4,16 @@
  */
 package com.mycompany.chat;
 
+import java.awt.image.BufferedImage;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -20,9 +25,15 @@ public class serverChat extends javax.swing.JFrame {
     static DataOutputStream output150;
     static DataInputStream input150;
     
+    private final JFileChooser openFileChooser;
+    private BufferedImage originlBI;
+    
     public serverChat() {
         initComponents();
+        openFileChooser = new JFileChooser();
+        openFileChooser.setCurrentDirectory(new File("C:\\"));
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -36,7 +47,7 @@ public class serverChat extends javax.swing.JFrame {
         button1 = new java.awt.Button();
         msg_send150 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        send_file150 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         msg_area150 = new javax.swing.JTextArea();
@@ -60,10 +71,10 @@ public class serverChat extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("Gửi file");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        send_file150.setText("Gửi file");
+        send_file150.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                send_file150ActionPerformed(evt);
             }
         });
 
@@ -85,7 +96,7 @@ public class serverChat extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton2)
-                    .addComponent(jButton3)
+                    .addComponent(send_file150)
                     .addComponent(msg_send150)
                     .addComponent(jButton4))
                 .addContainerGap(15, Short.MAX_VALUE))
@@ -98,7 +109,7 @@ public class serverChat extends javax.swing.JFrame {
                         .addGap(39, 39, 39)
                         .addComponent(jButton2)
                         .addGap(31, 31, 31)
-                        .addComponent(jButton3)
+                        .addComponent(send_file150)
                         .addGap(34, 34, 34)
                         .addComponent(jButton4))
                     .addGroup(layout.createSequentialGroup()
@@ -131,9 +142,16 @@ public class serverChat extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void send_file150ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_send_file150ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+        int returnValue = openFileChooser.showOpenDialog(this);
+        if ( returnValue == JFileChooser.APPROVE_OPTION){
+            try {
+                originlBI = ImageIO.read(openFileChooser.getSelectedFile());
+            } catch (IOException ioe) {
+            }
+        } 
+    }//GEN-LAST:event_send_file150ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -186,11 +204,11 @@ public class serverChat extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Button button1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JScrollPane jScrollPane1;
     private static javax.swing.JTextArea msg_area150;
     private javax.swing.JButton msg_send150;
     private javax.swing.JTextField msg_text150;
+    private javax.swing.JButton send_file150;
     // End of variables declaration//GEN-END:variables
 }

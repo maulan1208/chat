@@ -8,10 +8,15 @@ import static com.mycompany.chat.serverChat.input150;
 import static com.mycompany.chat.serverChat.output150;
 import static com.mycompany.chat.serverChat.socket150;
 import static com.mycompany.chat.serverChat.svSocet150;
+import java.awt.image.BufferedImage;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import javax.imageio.ImageIO;
+import javax.swing.JFileChooser;
 
 public class clientChat extends javax.swing.JFrame {
 
@@ -20,8 +25,13 @@ public class clientChat extends javax.swing.JFrame {
     static DataOutputStream output150;
     static DataInputStream input150;
     
+    private final JFileChooser openFileChooser;
+    private BufferedImage originlBI;
+    
     public clientChat() {
         initComponents();
+        openFileChooser = new JFileChooser();
+        openFileChooser.setCurrentDirectory(new File("C:\\"));
     }
 
     /**
@@ -126,6 +136,13 @@ public class clientChat extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        int returnValue = openFileChooser.showOpenDialog(this);
+        if ( returnValue == JFileChooser.APPROVE_OPTION){
+            try {
+                originlBI = ImageIO.read(openFileChooser.getSelectedFile());
+            } catch (IOException ioe) {
+            }
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void msg_send150ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_msg_send150ActionPerformed
